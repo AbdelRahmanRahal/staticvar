@@ -53,7 +53,7 @@ class StaticFloat():
 
 
 class StaticString():
-	def __init__(self, StringValue = 0):
+	def __init__(self, StringValue = ""):
 		if str(type(StringValue)) != "<class 'str'>":
 			try:
 				self.__value = str(StringValue)
