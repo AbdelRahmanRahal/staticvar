@@ -7,7 +7,7 @@
 
 Python does not provide a quick native way to declare static variables. There are some *workarounds*, but they don't look very nice; so I made a module that does it for you. <br><br>
 
-Currently, this module only supports integer, float and string types as `StaticInt`, `StaticFloat`, and `StaticString` respectively. <br><br>
+Currently, this module only supports integer, float and string types as `StaticInt`, `StaticFloat`, and `StaticStr` respectively. <br><br>
 
 #
 To get started, import the needed class(es):
