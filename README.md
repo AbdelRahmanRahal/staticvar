@@ -37,7 +37,7 @@ To change the value of the variable, use the `set()` method:
 
 ```python
 foo.set(4)
-print(foo.value)
+print(foo.value())
 ```
 Output:
 
@@ -47,7 +47,7 @@ Alternatively, you can just redefine the variable object with the new value:
 
 ```python
 foo = StaticInt(5)
-print(foo.value)
+print(foo.value())
 ```
 Ouput:
 
