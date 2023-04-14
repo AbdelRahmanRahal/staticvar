@@ -20,7 +20,7 @@ pip install StaticVar
 In your project, import the StaticVar module as follows:
 
 ```python
-from StaticVar import Static
+from staticvar import Static
 ```
 <br>
 
@@ -98,7 +98,7 @@ Output:
 # An example on how to utilise static variables in a simple program
 Though there are better ways to do it, we can use static variables to find the factorial of a number.
 ```python
-from StaticVar import Static
+from staticvar import Static
 
 
 # Using recursion and static variables to find the factorial of a number
