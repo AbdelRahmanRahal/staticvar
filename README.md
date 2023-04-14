@@ -10,14 +10,14 @@ Python does not provide a quick native way to declare static variables. There ar
 Currently, this module only supports integer, float, string and boolean types. <br><br>
 
 #
-To get started, install StaticVar by typing the following in your command line:
+To get started, install staticvar by typing the following in your command line:
 
 ```
-pip install StaticVar
+pip install staticvar
 ```
 <br><br>
 
-In your project, import the StaticVar module as follows:
+In your project, import the staticvar module as follows:
 
 ```python
 from staticvar import Static
@@ -36,7 +36,7 @@ Supported types include:
 - `"str"` for string type variables
 - `"bool"` for boolean type variables
 
-Alternatively, if no type is passed, StaticVar will infer the type.
+Alternatively, if no type is passed, staticvar will infer the type.
 <br><br>
 
 To access the value of the variable, use the `get()` method:
@@ -77,7 +77,7 @@ Output:
 
 `> int`<br><br>
 
-Variables set using the StaticVar module are not dynamic. Trying to later assign data with different types from the originally set/inferred one will raise an error if it cannot be converted/casted:
+Variables set using the staticvar module are not dynamic. Trying to later assign data with different types from the originally set/inferred one will raise an error if it cannot be converted/casted:
 
 ```python
 foo.set(6.9) # A float value in an integer variable type will be casted as an integer
@@ -104,7 +104,7 @@ from staticvar import Static
 # Using recursion and static variables to find the factorial of a number
 def factorial(limit, reset = True):
 	count = Static(1, "int")
-	answer = Static(1) # If no type specified, StaticVar will infer the type
+	answer = Static(1) # If no type specified, staticvar will infer the type
 
 	if reset == True:
 		count.set(1)
