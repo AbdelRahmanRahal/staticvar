@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "staticvar"
+version = "0.0.5"
+description = "The horrors of C Static variables for Python, with Python."
+authors = ["AbdelRahman <abdelrahman.rahal.mail@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/AbdelRahmanRahal/StaticVar"
+repository = "https://github.com/AbdelRahmanRahal/StaticVar"
+classifiers = [
+	"Development Status :: 3 - Alpha",
+	"Intended Audience :: Developers",
+	"Programming Language :: Python :: 3 :: Only",
+	"Operating System :: OS Independent",
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+varname = "^0.11.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
