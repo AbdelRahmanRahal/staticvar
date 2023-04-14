@@ -100,8 +100,6 @@ Though there are better ways to do it, we can use static variables to find the f
 ```python
 from StaticVar import Static
 
-# Using recursion and static variables to find the factorial of a number
-from StaticVar import Static
 
 # Using recursion and static variables to find the factorial of a number
 def factorial(limit, reset = True):
