@@ -1,4 +1,4 @@
-# StaticVar
+# staticvar
  A module that adds the horrors of C Static variables to Python, with Python. <br><br>
 
 > In programming, a static variable is the one allocated “statically,” which means its lifetime is throughout the program run.
