@@ -101,9 +101,12 @@ Though there are better ways to do it, we can use static variables to find the f
 from StaticVar import Static
 
 # Using recursion and static variables to find the factorial of a number
+from StaticVar import Static
+
+# Using recursion and static variables to find the factorial of a number
 def factorial(limit, reset = True):
- count = Static(1, "int")
- answer = Static(1) # If no type specified, StaticVar will infer the type
+	count = Static(1, "int")
+	answer = Static(1) # If no type specified, StaticVar will infer the type
 
 	if reset == True:
 		count.set(1)
