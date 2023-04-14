@@ -13,6 +13,7 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=['varname'],
+        python_requires=">=3.10",
         
         keywords=['Static', 'Static Variables', 'StaticVar'],
         classifiers= [
