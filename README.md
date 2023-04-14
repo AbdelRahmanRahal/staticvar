@@ -1,9 +1,9 @@
 # StaticVar
- A module that adds static variables to Python. <br><br>
+ A module that adds the horrors of C Static variables to Python, with Python. <br><br>
 
 > In programming, a static variable is the one allocated “statically,” which means its lifetime is throughout the program run.
 
-[Learn About Static Variable in C](https://www.upgrad.com/blog/static-variable-in-c) <br><br>
+[Learn About Static Variables in C](https://www.upgrad.com/blog/static-variable-in-c) <br><br>
 
 Python does not provide a quick native way to declare static variables. There are some *workarounds*, but they don't look very nice; so I made a module that does it for you. <br><br>
 
