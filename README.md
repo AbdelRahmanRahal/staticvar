@@ -7,69 +7,115 @@
 
 Python does not provide a quick native way to declare static variables. There are some *workarounds*, but they don't look very nice; so I made a module that does it for you. <br><br>
 
-Currently, this module only supports integer, float and string types as `StaticInt`, `StaticFloat`, and `StaticStr` respectively. <br><br>
+Currently, this module only supports integer, float, string and boolean types. <br><br>
 
 #
-To get started, import the needed class(es):
+To get started, install StaticVar by typing the following in your command line:
+
+```
+pip install StaticVar
+```
+<br><br>
+
+In your project, import the StaticVar module as follows:
 
 ```python
-from StaticVar import StaticInt
+from StaticVar import Static
 ```
 <br>
 
-Next, declare the name of the static variable and its value:
+Next, declare the name of the static variable with its value and type as the arguments:
 
 ```python
-foo = StaticInt(3)
+# Syntax: VARIABLE_NAME = Static(VALUE, "TYPE")
+foo = Static(3, "int")
 ```
-If no value is provided, it defaults to 0. (Just like a certain peculiar programming language...) <br><br>
+Supported types include:
+- `"int"` for integer type variables
+- `"float"` for float type variables
+- `"str"` for string type variables
+- `"bool"` for boolean type variables
 
-To access the value of the variable, use the `value()` method:
+Alternatively, if no type is passed, StaticVar will infer the type.
+<br><br>
+
+To access the value of the variable, use the `get()` method:
 
 ```python
-print(foo.value())
+print(foo.get())
 ```
 Output:
 
 `> 3`<br><br>
 
-To change the value of the variable, use the `set()` method:
+To change the value of the variable, use the `set()` method with the desired value as the argument:
 
 ```python
+# Syntax: VARIABLE_NAME.set(VALUE)
 foo.set(4)
-print(foo.value())
+print(foo.get())
 ```
 Output:
 
 `> 4`<br><br>
 
-Alternatively, you can just redefine the variable object with the new value:
+The `set()` method also returns the new set value:
 
 ```python
-foo = StaticInt(5)
-print(foo.value())
+print(foo.set(5))
 ```
 Ouput:
 
 `> 5`<br><br>
 
-Variables set using the StaticVar module are not dynamic. Trying to later assign data with different types from the originally set one will raise an error if it cannot be converted/casted:
+To get the type of the variable, use the `getType()` method:
 
 ```python
-foo.set(6.9) #A float value in an integer variable type will be casted as an integer
-print(foo.value())
+print(foo.getType())
+```
+Output:
+
+`> int`<br><br>
+
+Variables set using the StaticVar module are not dynamic. Trying to later assign data with different types from the originally set/inferred one will raise an error if it cannot be converted/casted:
+
+```python
+foo.set(6.9) # A float value in an integer variable type will be casted as an integer
+print(foo.get())
 ```
 Output:
 
 `> 6`<br><br>
 
 ```python
-foo.set("Hello, mum!")
-print(foo.value())
+foo.set("Hello, mum!") # Python will fail to convert this non-numerical string into integer and will raise an error
+print(foo.get())
 ```
 Output:
 
 `> ValueError: invalid literal for int() with base 10: 'Hello, mum!'`<br><br><br>
 
-# An example on how to utilise static variables
-I'll do it in the morning, I'm really exhausted.
+# An example on how to utilise static variables in a simple program
+Though there are better ways to do it, we can use static variables to find the factorial of a number.
+```python
+from StaticVar import Static
+
+# Using recursion and static variables to find the factorial of a number
+def factorial(limit, reset = True):
+ count = Static(1, "int")
+ answer = Static(1) # If no type specified, StaticVar will infer the type
+
+	if reset == True:
+		count.set(1)
+		answer.set(1)
+
+	if count.get() <= limit:
+		answer.set(answer.get() * (count.set(count.get() + 1) - 1))
+		factorial(limit, False)
+
+	return answer.get()
+
+
+user_input = eval(input("Enter a number: "))
+print(factorial(user_input))
+```
