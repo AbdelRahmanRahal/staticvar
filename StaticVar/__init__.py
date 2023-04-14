@@ -1,0 +1,1 @@
+from StaticVar import Static
