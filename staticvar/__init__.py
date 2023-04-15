@@ -1,0 +1,1 @@
+from staticvar.Static import Static
