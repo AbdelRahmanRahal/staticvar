@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "staticvar"
-version = "0.0.6"
+version = "0.0.7"
 description = "The horrors of C Static variables for Python, with Python."
 authors = ["AbdelRahman <abdelrahman.rahal.mail@gmail.com>"]
 license = "MIT"
