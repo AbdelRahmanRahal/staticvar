@@ -120,3 +120,5 @@ def factorial(limit, reset = True):
 user_input = eval(input("Enter a number: "))
 print(factorial(user_input))
 ```
+### Console
+![The number 5 is entered, to which the code successfully echos its factorial, 120](https://github.com/AbdelRahmanRahal/staticvar/blob/main/exampleconsole.gif?raw=true)
