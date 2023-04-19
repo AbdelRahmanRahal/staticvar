@@ -94,5 +94,9 @@ class Static():
 
 class InvalidTypeError(Exception):
 	def __init__(self, vtype):
-		self.type = vtype
-		super().__init__(f"Unsupported data type entered: {self.type}")
+		super().__init__(f"Unsupported data type entered: {vtype}")
+
+
+class UnsupportedMethodError(Exception):
+	def __init__(self):
+		super().__init__("")
