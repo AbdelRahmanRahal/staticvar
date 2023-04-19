@@ -85,6 +85,9 @@ class Static():
 	def get(self):
 		return StaticVars[self.__name][0]
 
+	# ————— getValue as an alias of get —————
+	getValue = get
+
 	def getType(self):
 		return StaticVars[self.__name][1]
 
