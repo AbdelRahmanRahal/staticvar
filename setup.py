@@ -10,4 +10,4 @@ This file is kept only for:
 
 from setuptools import setup
 
-setup(name="varname")
+setup(name="staticvar")
