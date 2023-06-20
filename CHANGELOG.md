@@ -12,6 +12,8 @@
 
 - `Static()` class.
 
+<br />
+
 Check out the [usage section](https://github.com/AbdelRahmanRahal/staticvar/blob/main/README.md#usage) on [README.md](https://github.com/AbdelRahmanRahal/staticvar/blob/main/README.md) to learn how to use staticvar with the new decorator.
 
 [0.1.0]: https://github.com/AbdelRahmanRahal/staticvar/releases/tag/v0.1.0
