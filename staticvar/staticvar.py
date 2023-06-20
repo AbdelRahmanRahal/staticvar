@@ -11,11 +11,10 @@ def staticvar(var_name: str, initial_value: Any, var_type: type = Any) -> Callab
 		var_type (type): type of the variable. Leave empty to make it dynamic.
 
 	Returns:
-		Callable: The decorated function.
+		Callable: the decorated function.
 
 	Raises:
-		TypeError: If a type is specified and it does not match the initial value.
-
+		TypeError: if a type is specified and it does not match the initial value.
 	'''
 	
 	def decorator(func):
