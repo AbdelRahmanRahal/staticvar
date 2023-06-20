@@ -1,3 +1,3 @@
-from .Static import Static
+from .staticvar import staticvar
 
-__version__ = "0.0.7"
+__version__ = "0.1.0"
