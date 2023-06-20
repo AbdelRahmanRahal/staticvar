@@ -1,132 +1,120 @@
 # staticvar
-A module that adds the horrors of C Static variables to Python, with Python. <br><br>
+A decorator that adds the horrors of C Static variables to Python, with Python.<br /><br />
 
 > In programming, a static variable is the one allocated “statically,” which means its lifetime is throughout the program run.
 
-[Learn About Static Variables in C](https://www.upgrad.com/blog/static-variable-in-c) <br><br>
+[Learn About Static Variables in C](https://www.upgrad.com/blog/static-variable-in-c)
+<br /><br />
 
-Python does not provide a quick native way to declare static variables. There are some *workarounds*, but they don't look very nice; so I made a module that does it for you. <br><br>
+Check out the changelog for staticvar [here](https://github.com/AbdelRahmanRahal/staticvar/blob/main/CHANGELOG.md).
+<br /><br />
 
-> **Note**: Currently, staticvar only supports integer, float, string and boolean types.
-<br>
-
-## Installation
+# Installation
 To get started, install staticvar by typing the following in your command line:
 
-	pip install staticvar
-<br>You can also manually download and install staticvar from [PyPI](https://pypi.org/project/staticvar/). <br><br>
-
-> **Warning**: staticvar currently only works with Python >= 3.10. Compatability with older versions are in the works.
-<br>
-
-## Usage
-### `Static()`
-In your project, import the staticvar module as follows:
-
-```python
-from staticvar import Static
 ```
-<br>
-
-Next, declare the name of the static variable with its value and type as the arguments as follows:
-
-```python
-# Syntax: VARIABLE_NAME = Static(VALUE, "TYPE")
-foo = Static(3, "int")
+pip install staticvar
 ```
-Supported types include:
-- `"int"` for integer type variables
-- `"float"` for float type variables
-- `"str"` for string type variables
-- `"bool"` for boolean type variables
+<br />
 
-Alternatively, if no type is specified, staticvar will infer the type. <br><br>
+You can also manually download and install staticvar from [PyPI](https://pypi.org/project/staticvar/).<br><br>
 
-### `.get()`
-To access the value of the variable, use the `get()` method:
+> **Warning**: staticvar only supports Python 3.5 and higher.
+
+
+# Usage
+### Importing
+In your project, import the staticvar decorator as follows:
 
 ```python
-print(foo.get())
+from staticvar import staticvar
 ```
-Output:
+<br />
 
-`> 3`<br><br>
-
-### `.set()`
-To change the value of the variable, use the `set()` method with the desired value as the argument:
+### Basics
+Next, use the staticvar decorator above the target function and declare the name of the static variable along with its initial value as follows:
 
 ```python
-# Syntax: VARIABLE_NAME.set(VALUE)
-foo.set(4)
-print(foo.get())
+# Syntax: @staticvar("VARIABLE_NAME", INITIAL_VALUE)
+@staticvar("foo", 0)
+def bar():
+	pass
 ```
-Output:
+<br />
 
-`> 4`<br><br>
-
-The `set()` method also returns the new set value:
+You use the static variable by preceding it with the name of the function its used in:
 
 ```python
-print(foo.set(5))
+@staticvar("foo", 0)
+def bar():
+	# Syntax: FUNCTION.VARIABLE_NAME
+	bar.foo += 1
 ```
-Ouput:
+<br />
 
-`> 5`<br><br>
-
-### `.getType()`
-To get the type of the variable, use the `getType()` method:
+You can declare more than 1 static variable by stacking staticvar decorators at the top of the target function, and you can use all sorts of different data types:
 
 ```python
-print(foo.getType())
+@staticvar("eggs", 2.71828183)
+@staticvar("spam", True)
+def bar():
+    if bar.spam == True:
+        return bar.eggs
 ```
-Output:
+<br />
 
-`> int`<br><br>
+### Typing
+staticvar supports typing!... kind of... You can insert the type of the static variable as an argument in the decorator to ensure that the initial value is of the expected type, but staticvar cannot guarantee later values to be of the same type.
 
-### Static all the way
-Variables set using the staticvar module are **not** dynamic. Trying to later assign data with different types from the originally set/inferred one will raise an error if it cannot be converted/casted:
+Here's how you can type-annotate your static variable with staticvar:
 
 ```python
-foo.set(6.9) # A float value in an integer variable type will be casted as an integer
-print(foo.get())
+# Syntax: @staticvar("VARIABLE_NAME", INITIAL_VALUE, VARIABLE_TYPE)
+@staticvar("foo", 0, int)
+def bar():
+	pass
+```
+> **Note**: staticvar supports types from the Python built-in `typing` module.
+
+<br />
+
+If a variable of an unexpected type is passed, staticvar will raise a TypeError and terminate the program:
+
+```python
+initialiser = 0.01
+
+@staticvar("count", initialiser, int)
+def bar():
+	bar.count += 1
 ```
 Output:
 
-`> 6`<br><br>
+`> TypeError: bar.count must be of type <class 'int'>. Current type: <class 'float'>`
+<br /><br />
+
+# An example on how to utilise staticvar and static variables in a simple program
+This is better done with Python's `@cache` decorator from `functools`, but staticvar can be used for memoization.
+
+Here, we use staticvar to quickly print out the values of the Fibonacci sequence from 0 to 500. Normally, this program would take incredibly long to finish, but with staticvar, it will finish it in less than a second.
 
 ```python
-foo.set("Hello, mum!") # Python will fail to convert this non-numerical string into integer and will raise an error
-print(foo.get())
-```
-Output:
+from staticvar import staticvar
 
-`> ValueError: invalid literal for int() with base 10: 'Hello, mum!'`<br><br><br>
+@staticvar("cache", {0: 0, 1: 1}, dict)
+def fibonacci(n: int) -> int:
+	if n < 0:
+		raise ValueError("n must be a non-negative integer.")
 
-## An example on how to utilise staticvar and static variables in a simple program
-Though there are better ways to do it, we can use static variables to find the factorial of a number.
-```python
-from staticvar import Static
+	# Checking if the value has already been computated before
+	if n in fibonacci.cache:
+		return fibonacci.cache[n]
 
+	fibonacci.cache[n] = fibonacci(n - 1) + fibonacci(n - 2)
+	return fibonacci.cache[n]
 
-# Using recursion and static variables to find the factorial of a number
-def factorial(limit, reset = True):
-	count = Static(1, "int")
-	answer = Static(1) # If no type is specified, staticvar will infer the type
-
-	if reset == True:
-		count.set(1)
-		answer.set(1)
-
-	if count.get() <= limit:
-		answer.set(answer.get() * (count.set(count.get() + 1) - 1))
-		factorial(limit, False)
-
-	return answer.get()
-
-
-user_input = int(input("Enter a number: "))
-print(factorial(user_input))
+for i in range(0, 501):
+	print(fibonacci(i))
 ```
 Console:
 
-![The number 5 is entered, to which the code successfully echos its factorial, 120](https://github.com/AbdelRahmanRahal/staticvar/blob/main/exampleconsole.gif?raw=true)
+![After the program runs, the values of the Fibonacci sequence from 0 to 500 get printed out instantaneously.](https://github.com/AbdelRahmanRahal/staticvar/blob/main/exampleconsole.gif?raw=true)
