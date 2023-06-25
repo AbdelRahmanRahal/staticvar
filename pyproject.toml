@@ -16,6 +16,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
+stackprinter = ">=0.2.10"
 
 
 [tool.poetry.dev-dependencies]
