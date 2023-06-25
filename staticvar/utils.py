@@ -93,8 +93,10 @@ class Configure():
 		Args:
 			value (Optional[bool]): set to `True` for staticvar's style and `False` to fall back to python's default style. Leave empty to get the current setting.
 		
+		Returns:
+			bool: whether to raise staticvar's exceptions in Python's default style or staticvar's style.
 		Raises:
-			TypeError: if an argument of any type but boolean is passed.
+			TypeError: if an argument of any type but boolean or None is passed.
 		'''
 		if value is None:
 			return Configure.__raise_better_errors
