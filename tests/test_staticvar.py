@@ -8,10 +8,12 @@ import pytest
 from staticvar import *
 
 
-Configure.suppress("UnpredictableBehaviourWarning")
+
 # ---------------------------------- Test 1 ---------------------------------- #
 # Testing the basic functionality of the decorator
 def test_basic_usage():
+	Configure.suppress("UnpredictableBehaviourWarning")
+	
 	@staticvar("counter", 0)
 	def my_function():
 		my_function.counter += 1
@@ -411,6 +413,8 @@ def test_valid_variable_type():
 # Testing if the decorator raises an appropriate warning when a complicated but valid type is passed
 # (e.g. subscripted generics)
 def test_complicated_types_warning():
+	Configure.unsuppress('ComplicatedTypeWarning')
+
 	with pytest.warns(ComplicatedTypeWarning):
 		@staticvar("cache", {0: 0, 1: 1}, Dict[int, int])
 		def fibonacci(n: int) -> int:
