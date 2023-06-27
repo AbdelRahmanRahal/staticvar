@@ -2,7 +2,10 @@ from .staticvar import staticvar
 from .exceptions import (
     StaticvarException,
     IllegalInstantiationError,
-    UnsupportedTypeError
+    UnsupportedTypeError,
+    StaticvarWarning,
+    ComplicatedTypeWarning,
+    UnpredictableBehaviourWarning
 )
 from .utils import Configure, StaticvarExceptionHandler
 
