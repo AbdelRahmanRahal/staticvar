@@ -29,7 +29,7 @@ class Configure():
 		out of `Configure()`; it should only be used as itself.
 		'''
 		with StaticvarExceptionHandler():
-			raise IllegalInstantiationError("Configure() class should not be instantiated as an object")
+			raise IllegalInstantiationError("Configure() class should not be instantiated as an object.")
 	
 	
 	@staticmethod
