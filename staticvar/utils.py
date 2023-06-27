@@ -10,9 +10,14 @@ from .exceptions import *
 
 
 class Configure():
+	'''
+	Class to manage staticvar's configurations.
+	'''
+	
+	# The reason they are in a dict instead of just making a method for each one is to support adding more warnings
 	__suppress: dict[str, bool] = {
-		"methods_warning": False,
-		"types_warning": False
+		"UnpredictableBehaviourWarning": False,
+		"ComplicatedTypeWarning": False
 	}
 
 	__raise_better_errors: bool = True
@@ -42,7 +47,7 @@ class Configure():
 		for warning in args:
 			if warning not in Configure.__suppress:
 				with StaticvarExceptionHandler():
-					raise LookupError("Warning {warning} not found in warnings list.")
+					raise LookupError(f"Warning {warning} not found in warnings list.")
 			
 			if not isinstance(warning, str):
 				with StaticvarExceptionHandler():
@@ -66,7 +71,7 @@ class Configure():
 		for warning in args:
 			if warning not in Configure.__suppress:
 				with StaticvarExceptionHandler():
-					raise LookupError("Warning {warning} not found in warnings list.")
+					raise LookupError(f"Warning {warning} not found in warnings list.")
 			
 			if not isinstance(warning, str):
 				with StaticvarExceptionHandler():
@@ -89,12 +94,13 @@ class Configure():
 		Sets whether to raise staticvar's exceptions in Python's default style or staticvar's
 		style (powered by [stackprinter](https://github.com/cknd/stackprinter) <3).
 		If no value is provided, it returns the current setting.
-
+		
 		Args:
 			value (Optional[bool]): set to `True` for staticvar's style and `False` to fall back to python's default style. Leave empty to get the current setting.
 		
 		Returns:
 			bool: whether to raise staticvar's exceptions in Python's default style or staticvar's style.
+		
 		Raises:
 			TypeError: if an argument of any type but boolean or None is passed.
 		'''
