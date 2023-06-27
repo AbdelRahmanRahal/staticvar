@@ -1,4 +1,4 @@
-from inspect import isclass, signature
+from inspect import isclass
 from keyword import iskeyword
 from typing import Any, Callable, get_args, get_origin, ParamSpec, TypeVar
 from warnings import warn
@@ -26,19 +26,26 @@ def staticvar(var_name: str, initial_value: Any, var_type: type = Any) -> Callab
 		Callable[[Callable[P, R]], Callable[P, R]]: the decorated function.
 
 	Raises:
-		TypeError: if a type is specified and it does not match the initial value.
+		TypeError:
+			• if a type is specified and it does not match the initial value.
+
+			• if the variable name is not a string.
+
+		UnsupportedTypeError: if the specified variable is not a valid type or a generic type from the typing module.
 		ValueError: if the variable name does not follow Python's syntax rules.
 	
 	'''
 	def decorator(func: Callable[P, R]) -> Callable[P, R]:
-		# Checking if the name of first argument is 'self'
-		arg_names = list(signature(func).parameters.keys())
-		if len(arg_names) > 0 and arg_names[0] == 'self' and not Configure.suppressed()["methods_warning"]:
+		# Checking if the targetted function is a method or a nested function
+		if (
+			len(func.__qualname__.split('.')) > 1 and
+			not Configure.suppressed()['UnpredictableBehaviourWarning']
+		):
 			warn(
 				f"\033[91m{func.__name__}: "
-				f"@staticvar decorator should not be used on class instance methods.\n"
-				f"\033[93mTo suppress this warning, use Configure.suppress('methods_warning')\033[0m",
-				SyntaxWarning
+				f"staticvar should not be used on methods or nested functions.\n"
+				f"\033[93mTo suppress this warning, use Configure.suppress('UnpredictableBehaviourWarning')\033[0m",
+				UnpredictableBehaviourWarning
 			)
 
 		
@@ -70,9 +77,24 @@ def staticvar(var_name: str, initial_value: Any, var_type: type = Any) -> Callab
 				)
 		
 		# Checking if the initial value does not match the type specified.
-		with StaticvarExceptionHandler():
-			if var_type != Any and not isinstance(initial_value, var_type):
-				raise TypeError(f"{full_name}: variable must be of type {var_type}. Current type: {type(initial_value)}")
+		matching: bool = True
+		try:
+			if var_type is not Any and not isinstance(initial_value, var_type):
+				matching = False
+		except TypeError:
+			if not Configure.suppressed()['ComplicatedTypeWarning']:
+				warn(
+					f"\033[91m{func.__name__}: "
+					f"@staticvar decorator cannot check if the type {var_type} matches the type of the initial value.\n"
+					f"\033[93mTo suppress this warning, use Configure.suppress('ComplicatedTypeWarning')\033[0m",
+					ComplicatedTypeWarning
+				)
+		else:
+			if matching is False:
+				with StaticvarExceptionHandler():
+					raise TypeError(
+						f"{full_name}: variable must be of specified type {var_type}. Current type: {type(initial_value)}"
+					)
 		
 
 		# Checking if the variable name does not follow Python's syntax rules.
