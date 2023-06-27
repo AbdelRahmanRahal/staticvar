@@ -29,3 +29,36 @@ class UnsupportedTypeError(StaticvarException):
 			message (str): error message.
 		'''
 		super().__init__(message)
+
+
+class StaticvarWarning(Warning):
+	def __init__(self, message: str) -> None:
+		'''
+		Base class for staticvar warnings.
+
+		Args:
+			message (str): error message.
+		'''
+		super().__init__(message)
+
+
+class ComplicatedTypeWarning(StaticvarWarning):
+	def __init__(self, message: str) -> None:
+		'''
+		Should be raised when a type that `isinstance()` cannot process (e.g. subscripted generics) is specified.
+
+		Args:
+			message (str): error message.
+		'''
+		super().__init__(message)
+
+
+class UnpredictableBehaviourWarning(StaticvarWarning):
+	def __init__(self, message: str) -> None:
+		'''
+		Should be raised when staticvar is used on a function that can make it behave incorrectly.
+
+		Args:
+			message (str): error message.
+		'''
+		super().__init__(message)
