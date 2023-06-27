@@ -1,7 +1,10 @@
-import re, sys
-import pytest
+import re
+import sys
 from io import StringIO
 from typing import Callable, Dict, Optional, Union
+
+import pytest
+
 from staticvar import *
 
 
@@ -510,20 +513,18 @@ def test_stackprinter_incompatible_initial_value_and_type():
 	) is not None
 
 
-# # ---------------------------------- Test 9 ---------------------------------- #
-# # Testing if the decorator behaves correctly when the decorated function is a method in a class and there are multiple instances of the class.
+# ---------------------------------- Test 13 ---------------------------------- #
+# Testing if the decorator raises an appropriate when the decorated function is a method in a class and there are multiple instances of the class.
+def test_unpredictable_behaviour_warning():
+	Configure.unsuppress("UnpredictableBehaviourWarning")
 
-# # class MyClass:
-# # 	@staticvar("counter", 0)
-# # 	def my_method(self):
-# # 		self.my_method.counter += 1
-# # 		return self.my_method.counter
-
-# # def test_multiple_class_instances():
-# # 	instance1 = MyClass()
-# # 	instance2 = MyClass()
-
-# # 	assert instance1.my_method() == 1
-# # 	assert instance1.my_method() == 2
-# # 	assert instance2.my_method() == 3
-# # 	assert instance2.my_method() == 4
+	with pytest.warns(UnpredictableBehaviourWarning):
+		class anInnocentClass:
+			@staticvar("anInnocentVariable", 0)
+			def my_method(self):
+				pass
+	
+	with pytest.warns(UnpredictableBehaviourWarning):
+		@staticvar("count", 0)
+		def my_function():
+			pass
