@@ -16,8 +16,8 @@ class Configure():
 	
 	# The reason they are in a dict instead of just making a method for each one is to support adding more warnings
 	__suppress: dict[str, bool] = {
-		"UnpredictableBehaviourWarning": False,
-		"ComplicatedTypeWarning": False
+		"ComplicatedTypeWarning": False,
+		"UnpredictableBehaviourWarning": False
 	}
 
 	__raise_better_errors: bool = True
@@ -45,14 +45,14 @@ class Configure():
 			TypeError: if an argument of any type but string is passed.
 		'''
 		for warning in args:
+			if not isinstance(warning, str):
+				with StaticvarExceptionHandler():
+					raise TypeError(f"Configure.suppress() only takes string arguments. Current type: {type(warning)}")
+			
 			if warning not in Configure.__suppress:
 				with StaticvarExceptionHandler():
 					raise LookupError(f"Warning {warning} not found in warnings list.")
 			
-			if not isinstance(warning, str):
-				with StaticvarExceptionHandler():
-					raise TypeError(f"Configure.suppress() only takes string arguments. Current type: {type(warning)}")
-
 			Configure.__suppress[warning] = True
 	
 
@@ -69,14 +69,14 @@ class Configure():
 			TypeError: if an argument of any type but string is passed.
 		'''
 		for warning in args:
+			if not isinstance(warning, str):
+				with StaticvarExceptionHandler():
+					raise TypeError(f"Configure.unsuppress() only takes string arguments. Current type: {type(warning)}")
+
 			if warning not in Configure.__suppress:
 				with StaticvarExceptionHandler():
 					raise LookupError(f"Warning {warning} not found in warnings list.")
 			
-			if not isinstance(warning, str):
-				with StaticvarExceptionHandler():
-					raise TypeError(f"Configure.suppress() only takes string arguments. Current type: {type(warning)}")
-
 			Configure.__suppress[warning] = False
 	
 
