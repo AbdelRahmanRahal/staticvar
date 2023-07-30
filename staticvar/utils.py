@@ -135,11 +135,11 @@ class StaticvarExceptionHandler():
 	
 
 	def __exit__(
-			self,
-			exc_type: Optional[Type[BaseException]],
-			exc_value: Optional[BaseException],
-			exc_traceback: Optional[TracebackType]
-		) -> Optional[bool]:
+		self,
+		exc_type: Optional[Type[BaseException]],
+		exc_value: Optional[BaseException],
+		exc_traceback: Optional[TracebackType]
+	) -> Optional[bool]:
 		# Checking an error is raised and that __raise_better_errors is True
 		if exc_type is not None and Configure.raise_better_errors():
 			# Getting the directory of the current file to suppress it
