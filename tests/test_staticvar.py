@@ -215,7 +215,7 @@ def test_invalid_variable_names():
 def test_stackprinter_invalid_variable_name():
 	# Setting the exceptions' styles to stackprinter's
 	Configure.raise_better_errors(True)
-
+	
 	# Redirecting stderr to the StringIO object
 	captured_output = StringIO()
 	sys.stderr = captured_output  
@@ -396,11 +396,11 @@ def test_valid_variable_type():
 
 
 	# This is hilarious lmao
-	class dummyClass:
+	class DummyClass:
 		def __init__(self, counter: int):
 			self.counter = counter
 
-	@staticvar("dummyObject", dummyClass(0), dummyClass)
+	@staticvar("dummyObject", DummyClass(0), DummyClass)
 	def dummy_function():
 		dummy_function.dummyObject.counter += 1
 		return dummy_function.dummyObject.counter
@@ -523,7 +523,7 @@ def test_unpredictable_behaviour_warning():
 	Configure.unsuppress("UnpredictableBehaviourWarning")
 
 	with pytest.warns(UnpredictableBehaviourWarning):
-		class anInnocentClass:
+		class AnInnocentClass:
 			@staticvar("anInnocentVariable", 0)
 			def my_method(self):
 				pass
