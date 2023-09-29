@@ -75,7 +75,7 @@ def bar():
 	pass
 ```
 > **Note**: staticvar supports most types from Python's built-in `typing` module, but it cannot force type checking on
-complicated types. See [edge cases]().
+complicated types. See [edge cases](https://github.com/AbdelRahmanRahal/staticvar/blob/main/README.md#complicated-types).
 
 <br />
 
@@ -222,7 +222,7 @@ NOT 4 5 6
 <br />
 
 staticvar provides a warning if used on nested functions since they basically defeat the purpose of using the static variable.
-If you know what you're doing, you can just `from staticvar import Configure` and suppress the warning by writing this line at the top of your code:
+If you know what you're doing, you can just do `from staticvar import Configure` and suppress the warning by writing this line at the top of your code:
 ```python
 Configure.suppress("UnpredictableBehaviourWarning")
 ```
