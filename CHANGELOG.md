@@ -5,7 +5,7 @@
 ### ✅ Added
 
 - `@staticvar` decorator. It does the same thing as the old `Static()` class, but better.
-- Basic support for typing.
+- Basic support for type-checking.
 - Support for most data types.
 
 ### ❌ Removed
