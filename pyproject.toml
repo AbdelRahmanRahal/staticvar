@@ -7,6 +7,8 @@ license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/AbdelRahmanRahal/staticvar"
 repository = "https://github.com/AbdelRahmanRahal/staticvar"
+documentation = "https://github.com/AbdelRahmanRahal/staticvar/blob/main/README.md"
+keywords = ["staticvar", "static variable", "static"]
 classifiers = [
 	"Development Status :: 3 - Alpha",
 	"Intended Audience :: Developers",
